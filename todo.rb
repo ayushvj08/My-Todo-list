@@ -7,8 +7,6 @@ class Todo
     @completed = completed
   end
 
-  # FILL YOUR CODE HERE
-
   def overdue?
     @due_date < Date.today
   end
@@ -22,15 +20,9 @@ class Todo
   end
 
   def to_displayable_string
-    if @due_date == Date.today
-      if @completed == true
-        "[X] #{@todo}"
-      else
-        "[ ] #{@todo}"
-      end
-    else
-      "[ ] #{@todo} #{@due_date}"
-    end
+    display_status = @completed ? "[X]" : "[ ]"
+    display_date = due_today? ? "" : @due_date
+    "#{display_status} #{@todo} #{display_date}"
   end
 end
 
@@ -55,14 +47,11 @@ class TodosList
     @todos.push(new_todo)
   end
 
-  # FILL YOUR CODE HERE
-
   def to_displayable_list
-    final = []
-    @todos.each { |todo|
-      final.push(todo.to_displayable_string)
+    @todos = @todos.map { |todo|
+      todo.to_displayable_string
     }
-    final
+    @todos
   end
 end
 
